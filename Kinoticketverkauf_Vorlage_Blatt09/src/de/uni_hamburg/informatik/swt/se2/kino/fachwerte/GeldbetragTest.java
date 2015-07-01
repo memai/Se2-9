@@ -1,7 +1,7 @@
 package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
 import static org.junit.Assert.*;
-import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.*;
+
 
 import org.junit.Test;
 
