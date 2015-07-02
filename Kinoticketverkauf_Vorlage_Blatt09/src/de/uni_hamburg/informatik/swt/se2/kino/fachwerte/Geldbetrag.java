@@ -143,11 +143,11 @@ public class Geldbetrag
      * @param faktor
      * @return Das Produkt als neuer Geldbetrag
      * 
-     * @require faktor > 0
+     * @require faktor >= 0
      */
     public Geldbetrag berechneVielfaches(int faktor)
     {
-        assert faktor > 0 : "Vorbedingung verletzt";
+        assert faktor >= 0 : "Vorbedingung verletzt";
         
         return get(_eurocent * faktor);
     }
