@@ -5,6 +5,7 @@ import java.util.Set;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Datum;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Platz;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Uhrzeit;
+import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 
 /**
  * Eine Vorstellung, für die Plätze verkauft und storniert werden können. Die
@@ -22,7 +23,7 @@ public class Vorstellung
     private Uhrzeit _anfangszeit;
     private Uhrzeit _endzeit;
     private Datum _datum;
-    private int _preis; //TODO Blatt9 Fachwert Geldbetrag in gesamter Klasse ändern
+    private Geldbetrag _preis; //TODO Blatt9 Fachwert Geldbetrag in gesamter Klasse ändern
     private boolean[][] _verkauft;
     private int _anzahlVerkauftePlaetze;
 
@@ -41,7 +42,7 @@ public class Vorstellung
      * @require anfangszeit != null
      * @require endzeit != null
      * @require datum != null
-     * @require preis > 0
+     * @require preis != null
      * 
      * @ensure getKinosaal() == kinosaal
      * @ensure getFilm() == film
@@ -51,14 +52,14 @@ public class Vorstellung
      * @ensure getPreis() == preis
      */
     public Vorstellung(Kinosaal kinosaal, Film film, Uhrzeit anfangszeit,
-            Uhrzeit endzeit, Datum datum, int preis) //TODO Blatt9 Fachwert Geldbetrag
+            Uhrzeit endzeit, Datum datum, Geldbetrag preis) 
     {
         assert kinosaal != null : "Vorbedingung verletzt: saal != null";
         assert film != null : "Vorbedingung verletzt: film != null";
         assert anfangszeit != null : "Vorbedingung verletzt: anfangszeit != null";
         assert endzeit != null : "Vorbedingung verletzt: endzeit != null";
         assert datum != null : "Vorbedingung verletzt: datum != null";
-        assert preis > 0: "Vorbedingung verletzt: preis > 0";
+        assert preis != null: "Vorbedingung verletzt: preis != null";
 
         _kinosaal = kinosaal;
         _film = film;
@@ -122,11 +123,11 @@ public class Vorstellung
     }
 
     /**
-     * Gibt den Verkaufspreis in Eurocent für Karten zu dieser Vorstellung
+     * Gibt den Verkaufspreis als Geldbetrag für Karten zu dieser Vorstellung
      * zurück.
      * 
      */
-    public int getPreis() //TODO Blatt9 Fachwert Geldbetrag
+    public Geldbetrag getPreis() 
     {
         return _preis; 
     }
@@ -183,15 +184,15 @@ public class Vorstellung
      * 
      * @param plaetze die Sitzplätze.
      * 
-     * @return Gesamtpreis in Eurocent
+     * @return Gesamtpreis als Geldbetrag
      * 
      * @require hatPlaetze(plaetze)
      */
-    public int getPreisFuerPlaetze(Set<Platz> plaetze) //TODO Blatt9 Fachwert Geldbetrag
+    public Geldbetrag getPreisFuerPlaetze(Set<Platz> plaetze) 
     {
         assert hatPlaetze(plaetze) : "Vorbedingung verletzt: hatPlaetze(plaetze)";
 
-        return _preis * plaetze.size(); 
+        return _preis.berechneVielfaches(plaetze.size()); 
     }
 
     /**
