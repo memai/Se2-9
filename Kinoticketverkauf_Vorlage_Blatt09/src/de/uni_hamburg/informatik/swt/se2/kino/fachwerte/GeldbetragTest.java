@@ -27,10 +27,72 @@ public class GeldbetragTest
     }
     
     @Test
-    public void testGetString() //falsch
+    public void testGetString() 
     {
-        assertTrue(_betrag1.equals(Geldbetrag.get(100)));
+        Geldbetrag betrag = Geldbetrag.get(99); 
+        String fail = "";
+        try 
+        {
+            betrag = Geldbetrag.get("100,"); 
+        }
+        catch (StringToGeldbetragException e)
+        {
+            System.out.println("Falscher String 100,");
+        }
+        assertEquals(betrag, Geldbetrag.get(10000)); 
+        
+        try 
+        {
+            betrag = Geldbetrag.get("100"); 
+        }
+        catch (StringToGeldbetragException e)
+        {
+            System.out.println("Falscher String 100");
+        }
+        assertFalse(betrag.equals(Geldbetrag.get(99)));
 
+        assertEquals(betrag, Geldbetrag.get(100));
+        try 
+        {
+            betrag = Geldbetrag.get("100fg"); 
+        }
+        catch (StringToGeldbetragException e)
+        {
+            fail = "Falscher String 100fg";
+        }
+        assertEquals(fail, "Falscher String 100fg"); 
+
+        try 
+        {
+            betrag = Geldbetrag.get("100,23"); 
+        }
+        catch (StringToGeldbetragException e)
+        {
+            System.out.println("Falscher String 100,23");
+        }
+        assertEquals(betrag, Geldbetrag.get(10023)); 
+
+        try 
+        {
+            betrag = Geldbetrag.get("10000000"); 
+        }
+        catch (StringToGeldbetragException e)
+        {
+            fail = "zu viele Vorkommastellen";
+        }
+        assertEquals(fail, "zu viele Vorkommastellen"); 
+        
+        try 
+        {
+            betrag = Geldbetrag.get("5,235"); 
+        }
+        catch (StringToGeldbetragException e)
+        {
+            fail = "zu viele Nachkommastellen";
+        }
+        assertEquals(fail, "zu viele Nachkommastellen"); 
+        
+        
     }
     
     @Test

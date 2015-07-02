@@ -3,6 +3,8 @@
  */
 package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
+import java.util.regex.Pattern;
+
 /**
  * Geldbeträge mit Euro und Cent Anteil
  * 
@@ -32,31 +34,48 @@ public class Geldbetrag
     /**
      * Gibt einen neuen Geldbetrag aus einem String zurueck.
      * Der String muss entweder aus Zahlen bestehen oder ein Komma und bis zu zwei Nachkommastellen
-     * enthalten. 
-     * Z.B. "300" wird als "300,00€" interpretiert, "3,00" als "3,00€"
+     * enthalten. Mit Komma 5 Vorkommastellen moeglich
+     * Z.B. "300" wird als "3,00€" interpretiert, 
+     * "3,00" als "3,00€"
+     * "3," als "3,00€"
      * 
      * @param betrag der umzuwandelnde Betrag
-     * @return ein Geldbetrag, der dem Eingabewert als Eurobetrag oder entsprich
+     * @return ein Geldbetrag, der dem Eingabewert enspricht (ohne Komma als Cent!)
      * 
      * @require betrag != null
      */
-    public static Geldbetrag get(String betrag) //Fehlerbehandlung fehlt
+    public static Geldbetrag get(String betrag)
+            throws StringToGeldbetragException
     {
         assert betrag != null : "Vorbedingung verletzt: null";
         int eurocent;
+
+        //regulärer ausdruck, der bis zu 7 Vorkomma- und  
+        //und bis zu 2 Nachkommastellen erlaubt; insgesamt aber nicht mehr als 7 Ziffern
+        //http://openbook.rheinwerk-verlag.de/javainsel9/javainsel_04_007.htm#mj26fc5cf60311afbddd72295cdd646a48
+        if (!Pattern.matches("[0-9]{1,5}[,]?[0-9]?[0-9]?", betrag))
+        {
+            throw new StringToGeldbetragException("Err");
+        }
+        //TODO Regulaerer Ausdruck noch nicht ganz ideal, bei 6 Ziffern ohne Komma 
+        //akzeptiert er, mit Komma nicht mehr 
+        //besser waere, die Nachkommaziffern generell nur zu erlauben wenn das Komma da ist
         
-        //wenn wir davon ausgehen, dass der String die richtige Form mit oder ohne Komma hat:
         if (betrag.contains(","))
         {
             String[] teile = betrag.split(",");
-            eurocent = Integer.getInteger(teile[0])*100;
-            eurocent += Integer.getInteger(teile[1]);
+
+            eurocent = Integer.parseInt(teile[0]) * 100;
+            if (teile.length == 2)
+            {
+                eurocent += Integer.parseInt(teile[1]);
+            }
         }
         else
         {
-            eurocent = Integer.getInteger(betrag)*100;
+            eurocent = Integer.parseInt(betrag);
         }
-        return new Geldbetrag(eurocent);        
+        return new Geldbetrag(eurocent);
     }
 
     /**
@@ -70,16 +89,15 @@ public class Geldbetrag
     private Geldbetrag(int eurocent)
     {
         assert eurocent >= 0 : "Vorbedingung verletzt: Wert negativ";
-        
+
         _eurocent = eurocent;
     }
-    
+
     private int getGeldbetrag()
     {
         return _eurocent;
     }
-    
-    
+
     /**
      * Erzeugt einen formatierten String mit einem Komma und zwei Nachkommastellen
      * 
@@ -88,25 +106,25 @@ public class Geldbetrag
     public String getFormatiertenString()
     {
         String cent;
-        if ((_eurocent%100)<10)
+        if ((_eurocent % 100) < 10)
         {
-            if ((_eurocent%100)==0)
+            if ((_eurocent % 100) == 0)
             {
                 cent = "00";
             }
             else
             {
-                cent = "0" + (_eurocent%100);
+                cent = "0" + (_eurocent % 100);
             }
         }
         else
         {
-            cent = "" + (_eurocent%100);
+            cent = "" + (_eurocent % 100);
         }
-        
-        return "" + (_eurocent/100) + "," + cent;
+
+        return "" + (_eurocent / 100) + "," + cent;
     }
-    
+
     /**
      * Addiert einen Geldbetrag zum gegebenen und gibt einen neuen zurueck 
      * 
@@ -119,8 +137,7 @@ public class Geldbetrag
     {
         return get(_eurocent + betrag.getGeldbetrag());
     }
-    
-    
+
     /**
      * Subtrahiert den uebergebenen Geldbetrag vom gegebenen.
      * Da keine negativen Betraege moeglich sind, muss der uebergebene Betrag kleiner sein
@@ -133,10 +150,10 @@ public class Geldbetrag
     public Geldbetrag subtrahiere(Geldbetrag betrag)
     {
         assert !betrag.istGroesserAls(this) : "Vorbedingung verletzt";
-        
+
         return get(_eurocent - betrag.getGeldbetrag());
     }
-    
+
     /**
      * Multipliziert den Geldbetrag mit einem ganzzahligen, positiven Faktor.
      * 
@@ -148,10 +165,10 @@ public class Geldbetrag
     public Geldbetrag berechneVielfaches(int faktor)
     {
         assert faktor >= 0 : "Vorbedingung verletzt";
-        
+
         return get(_eurocent * faktor);
     }
-    
+
     /**
      * 
      * @param betrag
@@ -164,23 +181,22 @@ public class Geldbetrag
         assert betrag != null : "Vorbedingung verletzt: null";
         return _eurocent > betrag.getGeldbetrag();
     }
-    
+
     /**
      * @require betrag != null
      */
     public boolean equals(Object o)
     {
         assert o != null : "Vorbedingung verletzt: null";
-        
-        return (o instanceof Geldbetrag) && ((Geldbetrag)o).getGeldbetrag() == _eurocent;
-        
-        
+
+        return (o instanceof Geldbetrag)
+                && ((Geldbetrag) o).getGeldbetrag() == _eurocent;
+
     }
-    
-    
+
     public int hashcode()
     {
         return _eurocent;
     }
-    
+
 }

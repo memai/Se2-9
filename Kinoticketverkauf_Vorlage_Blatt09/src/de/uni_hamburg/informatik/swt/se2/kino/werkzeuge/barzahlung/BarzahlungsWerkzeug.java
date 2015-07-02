@@ -9,6 +9,7 @@ import java.awt.event.WindowEvent;
 
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.ObservableSubwerkzeug;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
+import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.StringToGeldbetragException;
 
 /**
  * TODO für Blatt 8: Löschen
@@ -169,7 +170,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         }
         try //TODO Blatt 9 - parsen auf Kommazahlen!
         {
-            Geldbetrag eingabeBetrag = Geldbetrag.get(Integer.parseInt(eingabePreis));
+            Geldbetrag eingabeBetrag = Geldbetrag.get(eingabePreis);
             _ausreichenderGeldbetrag = (!_preis.istGroesserAls(eingabeBetrag)); //Methode prueft nicht auf >=
             Geldbetrag differenz;
             if (_ausreichenderGeldbetrag)
@@ -182,11 +183,13 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
             }
             zeigeRestbetrag(differenz); 
         }
-        catch (NumberFormatException ignore)
+        catch (StringToGeldbetragException e)
         {
             _ausreichenderGeldbetrag = false;
             zeigeFehlertext();
         }
+        
+        
         zeigeAusreichenderGeldbetragStatus();
     }
 
