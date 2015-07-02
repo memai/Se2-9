@@ -11,7 +11,7 @@ package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
  */
 public class Geldbetrag
 {
-    private int _eurocent;
+    private final int _eurocent;
 
     /**
      * Gibt einen neuen Geldbetrag aus einem Integerwert zurück. 
