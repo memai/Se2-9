@@ -9,7 +9,7 @@ import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.FSK;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Uhrzeit;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 
-public class TagesplanTest  //TODO Blatt9 Fachwert Geldbetrag Testklasse Tagesplan
+public class TagesplanTest  //TODO Blatt9 erledigt
 {
     private static final Datum _datum = Datum.get(1, 1, 2010);
     private static final Geldbetrag _geldbetrag = Geldbetrag.get(0);
