@@ -180,7 +180,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
             {
                 differenz = _preis.subtrahiere(eingabeBetrag);
             }
-            zeigeRestbetrag(differenz); //TODO diese Methodensignatur anpassen
+            zeigeRestbetrag(differenz); 
         }
         catch (NumberFormatException ignore)
         {
