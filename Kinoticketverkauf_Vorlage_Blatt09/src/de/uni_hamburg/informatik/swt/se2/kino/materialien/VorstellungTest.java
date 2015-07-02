@@ -18,7 +18,7 @@ import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Platz;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Uhrzeit;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 
-public class VorstellungTest //TODO Blatt9 Fachwert Geldbetrag VorStellungTest
+public class VorstellungTest
 {
     private Kinosaal _kinoA;
     private Film _hdR1;

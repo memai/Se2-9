@@ -23,7 +23,7 @@ public class Vorstellung
     private Uhrzeit _anfangszeit;
     private Uhrzeit _endzeit;
     private Datum _datum;
-    private Geldbetrag _preis; //TODO Blatt9 Fachwert Geldbetrag in gesamter Klasse ändern
+    private Geldbetrag _preis; 
     private boolean[][] _verkauft;
     private int _anzahlVerkauftePlaetze;
 

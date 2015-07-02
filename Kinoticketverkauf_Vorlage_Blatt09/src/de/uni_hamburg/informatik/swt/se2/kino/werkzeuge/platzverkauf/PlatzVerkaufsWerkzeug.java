@@ -122,7 +122,7 @@ public class PlatzVerkaufsWerkzeug
     /**
      * Aktualisiert den anzuzeigenden Gesamtpreis
      */
-    private void aktualisierePreisanzeige(Set<Platz> plaetze) //TODO Blatt9 Fachwert Geldbetrag
+    private void aktualisierePreisanzeige(Set<Platz> plaetze) 
     {
         _ausgewaehlterGesamtbetrag = null;
         if (istVerkaufenMoeglich(plaetze))

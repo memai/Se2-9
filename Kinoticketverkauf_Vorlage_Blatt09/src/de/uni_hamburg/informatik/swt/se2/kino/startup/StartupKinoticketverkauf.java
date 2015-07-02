@@ -76,7 +76,7 @@ public class StartupKinoticketverkauf
         Geldbetrag _800 = Geldbetrag.get(800);
         Geldbetrag _1000 = Geldbetrag.get(1000);
         
-      //TODO Blatt9 Fachwert Geldbetrag in KinoMitBeispielDaten benutzen
+      
         final Vorstellung[] vorstellungen = {
                 // Heute
                 new Vorstellung(saele[0], filme[2], nachmittag, abend, d1,
