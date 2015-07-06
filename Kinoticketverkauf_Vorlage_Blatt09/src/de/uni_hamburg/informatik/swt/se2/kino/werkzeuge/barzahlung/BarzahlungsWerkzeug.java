@@ -168,7 +168,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         {
             eingabePreis = "0";
         }
-        try //TODO Blatt 9 - parsen auf Kommazahlen!
+        try
         {
             Geldbetrag eingabeBetrag = Geldbetrag.get(eingabePreis);
             _ausreichenderGeldbetrag = (!_preis.istGroesserAls(eingabeBetrag)); //Methode prueft nicht auf >=
