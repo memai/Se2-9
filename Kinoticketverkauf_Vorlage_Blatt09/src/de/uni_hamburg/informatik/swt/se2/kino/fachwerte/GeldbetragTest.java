@@ -95,6 +95,14 @@ public class GeldbetragTest
         
     }
     
+    @Test(expected = StringToGeldbetragException.class)
+    public void testeUngueltigerString() throws StringToGeldbetragException
+    {
+        Geldbetrag.parseString("5,235"); 
+    }
+
+    
+    
     @Test
     public void testGetFormatiertenString()
     {
