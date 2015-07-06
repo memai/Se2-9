@@ -199,7 +199,7 @@ public class Geldbetrag
     }
 
     /**
-     * @require betrag != null
+     * @require o != null
      */
     public boolean equals(Object o)
     {
