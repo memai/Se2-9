@@ -13,7 +13,7 @@ public class StringToGeldbetragException extends Exception
     private static final long serialVersionUID = 1L;
 
     /**
-     * Initilaisert eine neue Exception mit der übergebenen Fehlermeldung.
+     * Initialisiert eine neue Exception mit der übergebenen Fehlermeldung.
      * 
      * @param message Eine Fehlerbeschreibung.
      */

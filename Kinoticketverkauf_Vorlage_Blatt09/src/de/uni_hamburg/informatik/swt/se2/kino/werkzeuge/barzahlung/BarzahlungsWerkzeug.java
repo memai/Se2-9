@@ -170,7 +170,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         }
         try
         {
-            Geldbetrag eingabeBetrag = Geldbetrag.get(eingabePreis);
+            Geldbetrag eingabeBetrag = Geldbetrag.parseString(eingabePreis);
             _ausreichenderGeldbetrag = (!_preis.istGroesserAls(eingabeBetrag)); //Methode prueft nicht auf >=
             Geldbetrag differenz;
             if (_ausreichenderGeldbetrag)

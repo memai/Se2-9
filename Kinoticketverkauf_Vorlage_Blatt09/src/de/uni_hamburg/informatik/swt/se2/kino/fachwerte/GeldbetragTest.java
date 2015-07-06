@@ -33,7 +33,7 @@ public class GeldbetragTest
         String fail = "";
         try 
         {
-            betrag = Geldbetrag.get("100,"); 
+            betrag = Geldbetrag.parseString("100,"); 
         }
         catch (StringToGeldbetragException e)
         {
@@ -43,7 +43,7 @@ public class GeldbetragTest
         
         try 
         {
-            betrag = Geldbetrag.get("100"); 
+            betrag = Geldbetrag.parseString("100"); 
         }
         catch (StringToGeldbetragException e)
         {
@@ -54,7 +54,7 @@ public class GeldbetragTest
         assertEquals(betrag, Geldbetrag.get(100));
         try 
         {
-            betrag = Geldbetrag.get("100fg"); 
+            betrag = Geldbetrag.parseString("100fg"); 
         }
         catch (StringToGeldbetragException e)
         {
@@ -64,7 +64,7 @@ public class GeldbetragTest
 
         try 
         {
-            betrag = Geldbetrag.get("100,23"); 
+            betrag = Geldbetrag.parseString("100,23"); 
         }
         catch (StringToGeldbetragException e)
         {
@@ -74,7 +74,7 @@ public class GeldbetragTest
 
         try 
         {
-            betrag = Geldbetrag.get("10000000"); 
+            betrag = Geldbetrag.parseString("10000000"); 
         }
         catch (StringToGeldbetragException e)
         {
@@ -84,7 +84,7 @@ public class GeldbetragTest
         
         try 
         {
-            betrag = Geldbetrag.get("5,235"); 
+            betrag = Geldbetrag.parseString("5,235"); 
         }
         catch (StringToGeldbetragException e)
         {

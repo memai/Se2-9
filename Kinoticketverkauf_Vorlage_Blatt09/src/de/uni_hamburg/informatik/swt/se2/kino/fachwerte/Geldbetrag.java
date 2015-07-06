@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 public class Geldbetrag
 {
     private final int _eurocent;
+    private String _formatierterString;
 
     /**
      * Gibt einen neuen Geldbetrag aus einem Integerwert zurück. 
@@ -44,7 +45,7 @@ public class Geldbetrag
      * 
      * @require betrag != null
      */
-    public static Geldbetrag get(String betrag)
+    public static Geldbetrag parseString(String betrag)
             throws StringToGeldbetragException
     {
         assert betrag != null : "Vorbedingung verletzt: null";
@@ -57,10 +58,7 @@ public class Geldbetrag
         {
             throw new StringToGeldbetragException("Err");
         }
-        //TODO Regulaerer Ausdruck noch nicht ganz ideal, bei 6 Ziffern ohne Komma 
-        //akzeptiert er, mit Komma nicht mehr 
-        //besser waere, die Nachkommaziffern generell nur zu erlauben wenn das Komma da ist
-        
+
         if (betrag.contains(","))
         {
             String[] teile = betrag.split(",");
@@ -93,17 +91,34 @@ public class Geldbetrag
         _eurocent = eurocent;
     }
 
+    /**
+     * Gibt den Geldbetrag in Eurocent zurueck (fuer Berechnungen etc.)
+     * 
+     * @return den Geldbetrag als Integer.
+     */
     private int getGeldbetrag()
     {
         return _eurocent;
     }
 
     /**
-     * Erzeugt einen formatierten String mit einem Komma und zwei Nachkommastellen
+     * Gibt einen formatierten String mit einem Komma und zwei Nachkommastellen zurueck
      * 
      * @return einen String der Form "EE,CC" 
      */
     public String getFormatiertenString()
+    {
+        if (_formatierterString == null)
+        {
+            erzeugeFormatiertenString();
+        }
+        return _formatierterString;
+    }
+
+    /**
+     * Erzeugt einen formatierten String mit einem Komma und zwei Nachkommastellen
+     */
+    private void erzeugeFormatiertenString()
     {
         String cent;
         if ((_eurocent % 100) < 10)
@@ -122,7 +137,8 @@ public class Geldbetrag
             cent = "" + (_eurocent % 100);
         }
 
-        return "" + (_eurocent / 100) + "," + cent;
+        _formatierterString = "" + (_eurocent / 100) + "," + cent;
+
     }
 
     /**
